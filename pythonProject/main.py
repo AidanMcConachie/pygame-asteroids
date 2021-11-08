@@ -13,6 +13,7 @@ gameName = "Asteroids"  # name
 done = False  # sentinel value
 size = (300, 300)  # size for screen
 screen = pygame.display.set_mode(size)  # set screen size
+# pygame.FULLSCREEN
 pygame.display.set_caption(gameName)  # set window title
 clock = pygame.time.Clock()  # used for ticks later
 # Colour Variables for background
@@ -64,7 +65,6 @@ music = 'assets/Innominate_2.mp3'
 # text
 
 font = pygame.font.SysFont("Roboto", 30)
-text = font.render("hello", True, white)
 
 # reset screen/background
 
@@ -164,9 +164,7 @@ def startAsteroids(difficult):  # start asteroids function
                 # escape to title screen
                 elif event.key == pygame.K_ESCAPE:
                     goHome = True
-                    screen.fill(black)
-                    screen.blit(titleScreen, (0, 0))
-                    pygame.display.update()
+                    break
                     # show help screen
                 elif event.key == pygame.K_h:
                     goHome = True
@@ -184,6 +182,7 @@ def startAsteroids(difficult):  # start asteroids function
                 startGame()
                 gameOver = False
                 currentScore = 0
+                goHome = False
         # Code below assists asteroids to not bug out
         time.sleep(0.025)
         wipe()
@@ -395,7 +394,7 @@ def startGame():
             screen.blit(textHigh, (230, 100))
             show()
             # if loop below replaces the high score with the current score if applicable
-            if str(currentScore)>str(highest):
+            if currentScore>int(highest):
                 file.truncate(0)
                 file.write(str(currentScore))
                 file.close()
@@ -444,6 +443,7 @@ while not done:  # loop to quit game once user pushes X
                 pygame.display.update()
                 # show help screen
             elif event.key == pygame.K_h:
+                goHome=True
                 screen.fill(black)
                 screen.blit(helpScreen, (0, 0))
                 pygame.display.update()
@@ -458,7 +458,7 @@ while not done:  # loop to quit game once user pushes X
             startGame()
             gameOver = False
             currentScore = 0
-
+            goHome=False
 
 # ------------------------------------------------------
 clock.tick(60)  # limited to 60 seconds a frame
