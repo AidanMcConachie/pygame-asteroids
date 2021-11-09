@@ -1,4 +1,4 @@
 # Asteroids
 Asteroids, a game made with [Pygame](https://www.pygame.org/).
 
-###### Made by my brother and I
+###### Made by me and my brother
