@@ -25,6 +25,7 @@ difficulty = 1  # overall difficulty
 rocketX = 100  # the rocket's X Cord
 gameOver = False  # sentinel value for game
 goHome = False # stops the game when help key or escape key pushed
+fullScreen = False # Fullscreen check
 
 # icon display
 pygame.display.set_caption(gameName)
@@ -124,7 +125,9 @@ newLocation = 0
 
 def startAsteroids(difficult):  # start asteroids function
     global x
+    global fullScreen
     global newLocation
+    global screen
     global currentScore
     global gameOver
     x = random.randint(0, 270) # random x cord for asteroid
@@ -171,7 +174,14 @@ def startAsteroids(difficult):  # start asteroids function
                     screen.fill(black)
                     screen.blit(helpScreen, (0, 0))
                     pygame.display.update()
-            # escape help screen
+                elif event.key == pygame.K_f:
+                    if fullScreen==False:
+                        screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+                        fullScreen=True
+                    elif fullScreen==True:
+                        screen = pygame.display.set_mode(size)
+                        fullScreen=False
+                        # escape help screen
             elif event.type == pygame.KEYUP:
                 if event.key == pygame.K_h:
                     screen.fill(black)
@@ -191,9 +201,9 @@ def startAsteroids(difficult):  # start asteroids function
         if difficulty==1:
             printDifficulty="Easy"
         elif difficulty==2:
-            printDifficulty="Medium (x2)"
+            printDifficulty="Medium"
         elif difficulty==3:
-            printDifficulty="Hard (x3)"
+            printDifficulty="Hard"
         textScore = font.render(str(currentScore) + " - " + printDifficulty, True, white)
         screen.blit(textScore, (110, 0))
         show()
@@ -223,9 +233,9 @@ def moveRocketLeft():
         if difficulty == 1:
             printDifficulty = "Easy"
         elif difficulty == 2:
-            printDifficulty = "Medium (x2)"
+            printDifficulty = "Medium"
         elif difficulty == 3:
-            printDifficulty = "Hard (x3)"
+            printDifficulty = "Hard"
         textScore = font.render(str(currentScore) + " - " + printDifficulty, True, white)
         screen.blit(textScore, (110, 0))
         show()
@@ -259,9 +269,9 @@ def moveRocketRight():
         if difficulty==1:
             printDifficulty="Easy"
         elif difficulty==2:
-            printDifficulty="Medium (x2)"
+            printDifficulty="Medium"
         elif difficulty==3:
-            printDifficulty="Hard (x3)"
+            printDifficulty="Hard"
         textScore = font.render(str(currentScore) + " - " + printDifficulty, True, white)
         screen.blit(textScore, (110, 0))
         show()
@@ -283,7 +293,6 @@ pygame.mixer.music.load(music)  # start the music
 pygame.mixer.music.play(loops=-1)  # loop the music
 
 # display the splash and main menu screens
-
 
 screen.blit(splash, (0, 0))
 pygame.display.update()
@@ -312,9 +321,9 @@ def changingRocket(x, y):
     if difficulty == 1:
         printDifficulty = "Easy"
     elif difficulty == 2:
-        printDifficulty = "Medium (x2)"
+        printDifficulty = "Medium"
     elif difficulty == 3:
-        printDifficulty = "Hard (x3)"
+        printDifficulty = "Hard"
     textScore = font.render(str(currentScore) + " - " + printDifficulty, True, white)
     screen.blit(textScore, (110, 0))
     show()
@@ -447,6 +456,13 @@ while not done:  # loop to quit game once user pushes X
                 screen.fill(black)
                 screen.blit(helpScreen, (0, 0))
                 pygame.display.update()
+            elif event.key == pygame.K_f:
+                if fullScreen == False:
+                    screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
+                    fullScreen = True
+                elif fullScreen == True:
+                    screen = pygame.display.set_mode(size)
+                    fullScreen = False
         # escape help screen
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_h:
